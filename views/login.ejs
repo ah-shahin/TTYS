@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>S/login</title>
+</head>
+<body>
+    <header> 
+        <div class="header">
+            <div class="logo">
+                <img src="https://t4.ftcdn.net/jpg/04/59/22/61/360_F_459226178_mVXOk4GRSyp6cY1SKuurbXpKFcSOTYQ3.jpg" alt="X logo">
+            </div>
+            <div class="nav">
+                
+            </div>
+        </div>
+      </header>  
+    <hr>
+   <div class="bigger-login-container">
+        <div class="login-container">
+            <div class="login-sin">Login</div>
+            <form action="/login" method="POST">
+                <div class="login-box">
+                    <input type="text" class="email-input" name="email" placeholder="Email" required>
+                    <input type="text" class="username-input" name="username" placeholder="Username" required>
+                </div>
+                <div><button class="login-btn" >Login</button></div>   
+            </form>    
+        </div>
+    </div> 
+    <%- include('footer.ejs'); -%>
+</body>
+</html>

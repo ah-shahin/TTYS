@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>S</title>
+</head>
+<body>
+<%- include('header.ejs'); -%>
+    <hr>
+    <div class="profile">
+      <div class="profile-contant">
+        <div class="main-profile-pic"><%=firstLetter[0].toUpperCase()%></div>
+        <div class="main-username"><%=username%></div>
+        <div class="main-email"><%=email%></div>
+    </div>
+    </div>
+    <div class="post">
+        <form action="/post" method="POST">
+            <div class="tweet-box">
+                <div class="tweet-header">
+                    <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
+                    <input type="text" class="input-area" name="post" placeholder="talk to yourself...">
+                </div>
+                <hr>
+                <button class="post-btn">Post</button>     
+        </form>
+        <form action="/delete" method="POST">
+            <button class="clear-btn" >Clear</button>
+        </form>
+    </div>
+    <div class="posts">
+        <% if(locals.posts){%>
+            <%posts.forEach((post)=> { %>
+                <div class="super-container">
+                    <div class="super-header">
+                        <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
+                        <div>
+                            <span class="super-username"><%=username%></span>
+                            <span class="super-date">· date</span>
+                        </div>
+                    </div>
+                    <div class="super-content">
+                        <%= post%>
+                    </div>
+                </div>
+            <%})%>    
+        <%}else{%>
+            <div class="super-container">
+                <div class="super-header">
+                    <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
+                    <div>
+                        <span class="super-username"><%=username%></span>
+                    </div>
+                </div>
+                <div class="super-content">
+                    <p>No posts to display</p>
+                </div>
+            </div>
+        <%}%>
+    </div>
+
+    <script src="../scripts/index.js"></script>
+<%- include('footer.ejs'); -%>
+</body>
+</html>
