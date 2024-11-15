@@ -1,16 +1,45 @@
-/* Reset some default margins */
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styling */
+/* Full-height Layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #121212; /* Deep dark background */
-    color: #e0e0e0; /* Light gray text for readability */
+    color: #e0e0e0; /* Light gray text */
     line-height: 1.6;
+}
+
+/* Flex properties for layout */
+.profile, .post, .posts {
+    flex: 1;
+}
+
+.posts {
+    max-width: 600px; /* Define a maximum width for centering */
+    margin: 0 auto; /* Center it horizontally */
+    padding: 20px; /* Optional padding */
+    margin-bottom: 40px;
+}
+
+
+/* Footer */
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #1f1f1f;
+    color: #777;
 }
 
 /* Header styling */
@@ -19,15 +48,15 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 25px;
-    background-color: #1f1f1f; /* Darker header background */
+    background-color: #1f1f1f;
     border-bottom: 1px solid #333;
 }
 
 .logo img {
-    height: 40px;
+    height: 45px;
 }
 
-/* Navigation styling */
+/* Navigation */
 .nav {
     display: flex;
     align-items: center;
@@ -40,12 +69,14 @@ body {
     cursor: pointer;
 }
 
-/* Profile section */
-.profile {
+/* Profile Section */
+.profile-contant {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    justify-content: center; /* This will center the content vertically */
+    height: 100%; /* Full height to fill the available space */
+    text-align: center; /* Centers text inside the container */
 }
 
 .main-profile-pic {
@@ -59,20 +90,22 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 36px;
+    margin: 10px 0; /* Ensures some space above and below the profile picture */
 }
 
 .main-username {
     font-size: 24px;
-    margin-top: 10px;
+    margin-top: 3px;
 }
 
 .main-email {
     font-size: 14px;
     color: #b0b0b0;
+    margin-top: 3px; /* Gives some space below the username */
 }
 
-/* Post box styling */
-.tweet-box {
+/* Tweet/Post Box */
+.tweet-box, .super-container {
     max-width: 600px;
     background-color: #1e1e1e;
     padding: 20px;
@@ -110,8 +143,8 @@ body {
     font-size: 16px;
 }
 
-/* Button styling */
-.post-btn, .clear-btn {
+/* Buttons */
+.post-btn, .clear-btn, .login-btn {
     background-color: #ff9800;
     border: none;
     border-radius: 20px;
@@ -121,22 +154,24 @@ body {
     cursor: pointer;
     margin: 5px 0;
     transition: background-color 0.3s;
+    display: inline-block;
+}
+.delete{
+    background-color: #ff9800;
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-weight: bold;
+    margin-left: 450px;
+    
 }
 
-.post-btn:hover, .clear-btn:hover {
+.post-btn:hover, .clear-btn:hover, .login-btn:hover {
     background-color: #ffb74d;
 }
 
-/* Post display box */
-.super-container {
-    max-width: 600px;
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px auto;
-    border: 1px solid #444;
-}
-
+/* Post Display */
 .super-header {
     display: flex;
     align-items: center;
@@ -155,7 +190,7 @@ body {
     line-height: 1.5;
 }
 
-/* Center the login container */
+/* Center Login Container */
 .bigger-login-container {
     display: flex;
     justify-content: center;
@@ -164,7 +199,6 @@ body {
     background-color: #121212;
 }
 
-/* Login container styling */
 .login-container {
     width: 400px;
     background-color: #1e1e1e;
@@ -175,14 +209,14 @@ body {
     text-align: center;
 }
 
-/* Login header */
+/* Login Header */
 .login-sin {
     font-size: 30px;
     color: #ff9800;
     margin-bottom: 20px;
 }
 
-/* Input fields */
+/* Login Inputs */
 .username-input, .email-input {
     width: 100%;
     padding: 10px;
@@ -193,29 +227,4 @@ body {
     color: #ffffff;
     outline: none;
     font-size: 16px;
-}
-
-/* Login button styling */
-.login-btn {
-    background-color: #ff9800;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    padding: 10px 0;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-}
-
-.login-btn:hover {
-    background-color: #ffb74d;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #1f1f1f;
-    color: #777;
 }

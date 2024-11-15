@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>S</title>
+    <title>T</title>
 </head>
 <body>
 <%- include('header.ejs'); -%>
@@ -16,37 +16,44 @@
         <div class="main-email"><%=email%></div>
       </div>
     </div>
+    
     <div class="post">
         <form action="/post" method="POST">
             <div class="tweet-box">
                 <div class="tweet-header">
                     <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
-                    <input type="text" class="input-area" name="post" placeholder="talk to yourself...">
+                    <input type="text" class="input-area" name="post" placeholder="Talk to yourself...">
                 </div>
                 <hr>
                 <button class="post-btn">Post</button>     
         </form>
-        <form action="/delete" method="POST">
-            <button class="clear-btn" >Clear</button>
+        <form action="/clear" method="POST">
+            <button class="clear-btn">Clear</button>
         </form>
     </div>
+
     <div class="posts">
-        <% if(locals.posts){%>
-            <%posts.forEach((post)=> { %>
+        <% if (posts && posts.length > 0) { %>
+            <% posts.forEach((post, index) => { %>
                 <div class="super-container">
                     <div class="super-header">
                         <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
                         <div>
                             <span class="super-username"><%=username%></span>
-                            <span class="super-date">· date</span>
+                            <!-- Adding a data attribute for timestamp -->
+                            <span class="super-date post-time" data-post-time="<%= post.timestamp %>"></span>
                         </div>
                     </div>
                     <div class="super-content">
-                        <%= post%>
+                        <%= post.content %>
                     </div>
+                    <form action="/delete" method="POST">
+                        <input type="hidden" name="postId" value="<%= index %>">
+                        <button class="delete">Delete</button>
+                    </form>
                 </div>
-            <%})%>    
-        <%}else{%>
+            <% }) %>    
+        <% } else { %>
             <div class="super-container">
                 <div class="super-header">
                     <div class="profile-pic"><%=firstLetter[0].toUpperCase()%></div>
@@ -58,10 +65,37 @@
                     <p>No posts to display</p>
                 </div>
             </div>
-        <%}%>
+        <% } %>
     </div>
 
-    <script src="../scripts/index.js"></script>
+    
+    <script>
+        function getTimeDifference(postTime) {
+            const now = new Date();
+            const differenceInSeconds = Math.floor((now - postTime) / 1000);
+
+            if (differenceInSeconds < 60) return 'just now';
+            const minutes = Math.floor(differenceInSeconds / 60);
+            if (minutes < 60) return `${minutes} minutes ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hours ago`;
+            const days = Math.floor(hours / 24);
+            return `${days} days ago`;
+        }
+
+        function updateTimeCounters() {
+            const timeElements = document.querySelectorAll('.post-time');
+            timeElements.forEach((element) => {
+                const postTime = new Date(element.getAttribute('data-post-time'));
+                element.textContent = getTimeDifference(postTime);
+            });
+        }
+
+        // Update time counters every minute
+        setInterval(updateTimeCounters, 60000);
+        window.onload = updateTimeCounters;
+    </script>
+
 <%- include('footer.ejs'); -%>
 </body>
 </html>

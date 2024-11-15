@@ -13,25 +13,30 @@ let posts = [];
 let newPost;
 let username;
 let email;
-let numPosts;
+let index = -1;
 let date;
-let firstLetter;
-
+let firstLetter =[];
 
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+
+
+
 app.get("/",(req,res)=>{
     
-// don't continue this code and return 404 status he isn't signed in(boolean, check strings)
 
-    numPosts = posts.length;
-
+    
+    if(!firstLetter.length) res.redirect("/login");
+        
+    
+    index++;
+    
     res.render("index.ejs",{
         posts: posts,
-        numPosts: numPosts,
+        index: index,
         date: date,
         username: username,
         email: email,
@@ -41,7 +46,9 @@ app.get("/",(req,res)=>{
 
 
 app.get("/login",(req,res)=>{
+    if(firstLetter.length) res.redirect("/");
     res.render("login.ejs");
+   
 })
 
 app.post("/login",(req,res)=>{
@@ -55,43 +62,38 @@ app.post("/login",(req,res)=>{
     res.redirect("/")
 })
 
+app.post("/post", (req, res) => {
+    const content = req.body.post;
 
+    if (!content) return res.sendStatus(422); 
 
-app.post("/post",(req,res)=>{
-    newPost = req.body["post"];
+    const newPost = {
+        content: content,
+        timestamp: new Date().toISOString()
+    };
 
-    if (!newPost) {res.sendStatus(422);}
+    posts.unshift(newPost); 
+    res.redirect("/");
+});
 
-
-    
-    posts.unshift(newPost);
- 
-    numPosts = posts.length
-    
-    
-    res.render("index.ejs",{
-        posts: posts,
-        numPosts: numPosts,
-        date: date,
-        username: username,
-        email: email,
-        firstLetter: username
-    })
-})
-
-app.post("/delete",(req,res)=>{
+app.post("/clear",(req,res)=>{
     
     posts = [];
-    numPosts = posts.length
 
-    res.render("index.ejs",{
-        posts: posts,
-        numPosts: numPosts,
-        date: date,
-        username: username,
-        email: email,
-        firstLetter: username
-    })
+    res.redirect("/");
+})
+
+
+app.post("/delete", (req,res)=>{
+    const postId = req.body.postId; 
+    
+    
+    if (postId >= 0 && postId < posts.length) {
+       
+        posts.splice(postId, 1);
+    }
+
+    res.redirect("/");
 })
 
 app.listen(port ,()=>{
